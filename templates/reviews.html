@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<div class="container">
+    <title>Reviews</title>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Submit Game Review To Editorial Staff</h1>
+<form action="/reviews" method="POST">
+    <div class="row">
+        Author:  <br><input type="text" name="author" id="author" class="white-text black col s5">
+        <br> <br> <br>
+        Game Title:  <br><input type="text" name="gtitle" id="gtitle" class="white-text black col s5">
+        <br> <br> <br>
+        Game Review: <textarea name="greview" id="greview" class="materialize-textarea white-text black"></textarea>
+        <br>
+        Game Score: <br><input type="number" name="gscore" id="gscore" min="1" max="10" class="white-text black col s1">
+        <br>
+    </div>
+        <button class="btn waves-effect waves-light black" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+        </button>
+
+</form>
+
+
+<h1>All Reviews</h1>
+    {% for review in reviews %}
+
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">{{ review.game_title }}</span>
+                <small>Written By: {{ review.author_name }}</small>
+                <br>
+                <br>
+                <p style="white-space:pre-wrap">{{ review.game_review }}</p>
+                <p>{{ review.game_score }}</p>
+            </div>
+            <div class="card-action">
+                <a href="/reviews/delete/{{ review.id }}" class="btn black">Delete</a>
+            </div>
+        </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
